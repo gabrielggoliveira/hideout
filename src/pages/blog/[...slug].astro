@@ -33,25 +33,25 @@ const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
 <Layout title={`${post.data.title} | Hideout`} description={post.data.description}>
 	<div>
 		<main class="mx-auto w-full max-w-6xl px-6 py-12 sm:px-10 lg:px-12 lg:py-20">
-			<a href="/" class="inline-flex items-center gap-2 text-sm font-medium text-black/50 transition hover:text-black">
+			<a href="/" class="inline-flex items-center gap-2 text-sm font-medium text-black/80 transition hover:text-black">
 				<span aria-hidden="true">&larr;</span>
 				Voltar para os posts
 			</a>
 
 			<header class="mt-10 max-w-3xl border-b border-black/10 pb-10">
-				<p class="text-sm uppercase tracking-[0.24em] text-black/45">
+				<p class="text-sm uppercase tracking-[0.24em] text-black/75">
 					{dateFormatter.format(post.data.pubDate)}
 				</p>
 				<h1 class="mt-4 font-serif text-4xl leading-tight text-black sm:text-5xl">
 					{post.data.title}
 				</h1>
-				<p class="mt-5 text-lg leading-8 text-black/70">{post.data.description}</p>
+				<p class="mt-5 text-lg leading-8 text-black/90">{post.data.description}</p>
 			</header>
 
 			{toc.length > 0 && (
 				<nav class="mt-8 rounded-2xl border border-black/10 bg-white p-5 lg:hidden">
-					<p class="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">Secoes</p>
-					<ul class="mt-4 space-y-3 text-sm text-black/70">
+					<p class="text-xs font-semibold uppercase tracking-[0.24em] text-black/75">Secoes</p>
+					<ul class="mt-4 space-y-3 text-sm text-black/90">
 						{toc.map((heading) => (
 							<li class:list={{ 'pl-4': heading.depth === 3 }}>
 								<a href={`#${heading.slug}`} class="transition hover:text-black">
@@ -65,7 +65,7 @@ const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
 
 			<div class="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start">
 				<article
-					class="prose max-w-none prose-neutral prose-headings:font-serif prose-headings:font-medium prose-a:text-black prose-a:no-underline prose-strong:text-black prose-code:text-black prose-pre:border prose-pre:border-black/10 prose-pre:bg-black/[0.03]"
+					class="prose max-w-none prose-neutral prose-headings:font-serif prose-headings:font-medium prose-headings:text-black prose-p:text-black prose-li:text-black prose-blockquote:text-black prose-a:text-black prose-a:no-underline prose-strong:text-black prose-code:text-black prose-pre:border prose-pre:border-black/10 prose-pre:bg-black/[0.03]"
 				>
 					<Content />
 				</article>
@@ -73,8 +73,8 @@ const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
 				{toc.length > 0 && (
 					<aside class="hidden lg:block">
 						<div class="sticky top-10 rounded-3xl border border-black/10 bg-white p-6">
-							<p class="text-xs font-semibold uppercase tracking-[0.24em] text-black/45">Secoes</p>
-							<ul class="mt-5 space-y-3 text-sm leading-6 text-black/70">
+							<p class="text-xs font-semibold uppercase tracking-[0.24em] text-black/75">Secoes</p>
+							<ul class="mt-5 space-y-3 text-sm leading-6 text-black/90">
 								{toc.map((heading) => (
 									<li class:list={{ 'pl-4': heading.depth === 3 }}>
 										<a href={`#${heading.slug}`} class="transition hover:text-black">

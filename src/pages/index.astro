@@ -57,13 +57,7 @@ const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
 	<div>
 		<main class="mx-auto flex min-h-screen w-full max-w-5xl flex-col px-6 py-12 sm:px-10 lg:px-12 lg:py-20">
 			<header class="max-w-3xl border-b border-black/10 pb-10">
-				<p class="text-sm font-semibold uppercase tracking-[0.32em] text-black/60">Hideout</p>
-				<h1 class="mt-4 max-w-2xl font-serif text-5xl leading-tight text-black sm:text-6xl">
-					Um blog minimalista para ideias que merecem mais do que pressa.
-				</h1>
-				<p class="mt-6 max-w-2xl text-lg leading-8 text-black/70">
-					Posts sobre software, produto e rotina de trabalho com menos ruido e mais clareza.
-				</p>
+				<h1 class="text-sm font-semibold uppercase tracking-[0.32em] text-black/80">Hideout</h1>
 			</header>
 
 			<section class="mt-10 space-y-10 sm:mt-14">
@@ -75,17 +69,17 @@ const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
 								<li>
 									<a
 										href={`/blog/${getPostSlug(post)}`}
-										class="group flex gap-3 text-black transition hover:text-black/70"
+										class="group flex gap-3 text-black transition hover:text-black"
 									>
-										<span class="pt-1 text-lg leading-none text-black/70" aria-hidden="true">*</span>
+										<span class="pt-1 text-lg leading-none text-black/90" aria-hidden="true">*</span>
 										<div>
 											<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
-												<span class="text-sm text-black/45">
+												<span class="text-sm text-black/70">
 													{dateFormatter.format(post.data.pubDate)}
 												</span>
 												<span class="font-serif text-2xl leading-tight">{post.data.title}</span>
 											</div>
-											<p class="mt-2 max-w-2xl text-base leading-7 text-black/70">
+											<p class="mt-2 max-w-2xl text-base leading-7 text-black/90">
 												{post.data.description}
 											</p>
 										</div>
