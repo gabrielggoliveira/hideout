@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+	--font-sans: "Manrope", sans-serif;
+	--font-serif: "Newsreader", serif;
+}
+
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		background: #ffffff;
+		color: #0a0a0a;
+	}
+
+	::selection {
+		background: #0a0a0a;
+		color: #ffffff;
+	}
+
+	a {
+		text-underline-offset: 0.2em;
+	}
+
+	.prose h2,
+	.prose h3,
+	.prose h4 {
+		scroll-margin-top: 2rem;
+	}
+}

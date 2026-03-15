@@ -1,11 +1,101 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const getPostSlug = (post: CollectionEntry<'blog'>) => post.id.replace(/\.md$/, '');
+
+const posts: CollectionEntry<'blog'>[] = (await getCollection('blog'))
+	.filter((post: CollectionEntry<'blog'>) => !post.data.draft)
+	.sort(
+		(a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) =>
+			b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	);
+
+const monthFormatter = new Intl.DateTimeFormat('pt-BR', {
+	month: 'long',
+});
+
+const groupedPosts = posts.reduce(
+	(groups: Array<{
+		year: number;
+		month: number;
+		label: string;
+		posts: CollectionEntry<'blog'>[];
+	}>, post: CollectionEntry<'blog'>) => {
+		const year = post.data.pubDate.getFullYear();
+		const month = post.data.pubDate.getMonth();
+		const existingGroup = groups.find((group) => group.year === year && group.month === month);
+
+		if (existingGroup) {
+			existingGroup.posts.push(post);
+			return groups;
+		}
+
+		groups.push({
+			year,
+			month,
+			label: `${year} - ${monthFormatter.format(post.data.pubDate)}`,
+			posts: [post],
+		});
+
+		return groups;
+	},
+	[],
+);
+
+const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
+	day: '2-digit',
+	month: '2-digit',
+});
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title="Hideout | Blog"
+	description="Notas e ensaios curtos sobre software, produto e uma forma mais calma de trabalhar."
+>
+	<div>
+		<main class="mx-auto flex min-h-screen w-full max-w-5xl flex-col px-6 py-12 sm:px-10 lg:px-12 lg:py-20">
+			<header class="max-w-3xl border-b border-black/10 pb-10">
+				<p class="text-sm font-semibold uppercase tracking-[0.32em] text-black/60">Hideout</p>
+				<h1 class="mt-4 max-w-2xl font-serif text-5xl leading-tight text-black sm:text-6xl">
+					Um blog minimalista para ideias que merecem mais do que pressa.
+				</h1>
+				<p class="mt-6 max-w-2xl text-lg leading-8 text-black/70">
+					Posts sobre software, produto e rotina de trabalho com menos ruido e mais clareza.
+				</p>
+			</header>
+
+			<section class="mt-10 space-y-10 sm:mt-14">
+				{groupedPosts.map((group) => (
+					<section class="border-b border-black/10 pb-8 last:border-b-0 last:pb-0">
+						<h2 class="font-serif text-3xl leading-tight text-black">{group.label}</h2>
+						<ul class="mt-5 space-y-4">
+							{group.posts.map((post) => (
+								<li>
+									<a
+										href={`/blog/${getPostSlug(post)}`}
+										class="group flex gap-3 text-black transition hover:text-black/70"
+									>
+										<span class="pt-1 text-lg leading-none text-black/70" aria-hidden="true">*</span>
+										<div>
+											<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
+												<span class="text-sm text-black/45">
+													{dateFormatter.format(post.data.pubDate)}
+												</span>
+												<span class="font-serif text-2xl leading-tight">{post.data.title}</span>
+											</div>
+											<p class="mt-2 max-w-2xl text-base leading-7 text-black/70">
+												{post.data.description}
+											</p>
+										</div>
+									</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				))}
+			</section>
+		</main>
+	</div>
 </Layout>
